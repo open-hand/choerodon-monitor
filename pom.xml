@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.choerodon</groupId>
         <artifactId>choerodon-framework-parent</artifactId>
-        <version>0.16.1-SNAPSHOT</version>
+        <version>0.16.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>hzero-monitor</artifactId>
@@ -25,8 +25,6 @@
             <groupId>org.hzero</groupId>
             <artifactId>hzero-monitor-saas</artifactId>
         </dependency>
-
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
