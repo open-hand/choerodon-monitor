@@ -24,6 +24,12 @@
         <dependency>
             <groupId>org.hzero</groupId>
             <artifactId>hzero-monitor-saas</artifactId>
+             <exclusions>
+                <exclusion>
+                    <groupId>org.hzero.starter</groupId>
+                    <artifactId>hzero-starter-hitoa</artifactId>
+                </exclusion>
+              </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
