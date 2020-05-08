@@ -1,6 +1,6 @@
-package script.db
+package script.db.groovy.hzero_monitor
 
-databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data.groovy') {
+databaseChangeLog(logicalFilePath: 'script/script/hmnt_audit_data.groovy') {
     changeSet(author: "xingxing.wu@hand-china.com", id: "2019-08-17-hmnt_audit_data") {
         def weight = 1
         if(helper.isSqlServer()){

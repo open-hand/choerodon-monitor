@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Release.Name }}-init-db
+  name: {{ .Release.Name }}-init-script
   annotations:
     "helm.sh/hook-weight": "1"
     "helm.sh/hook": pre-install,pre-upgrade
@@ -14,7 +14,7 @@ spec:
   activeDeadlineSeconds: {{ .Values.preJob.timeout | default 300 }}
   template:
     metadata:
-      name: {{ .Release.Name }}-init-db
+      name: {{ .Release.Name }}-init-script
     spec:
       initContainers:
       - command:
@@ -28,7 +28,7 @@ spec:
         - mountPath: /tools
           name: tools-jar
       containers:
-      - name: {{ .Release.Name }}-init-db
+      - name: {{ .Release.Name }}-init-script
         image: {{ include "service.image" . }}
         command:
         - /bin/sh
