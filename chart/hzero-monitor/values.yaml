@@ -110,8 +110,6 @@ env:
     HZERO_AUDIT_ANNOTATION_ENABLE: true
     # 资源匹配路径
     HZERO_RESOURCE_PATTERN: /v1/*,/hzero/*,/hmnt/v1/*,/hmnt/hzero/*
-    # 数据库所有者模式，例如 SqlServer 下的 dbo/guest
-    HZERO_DB_OWNER:
     # 日志级别
     LOG_LEVEL: info
     # 内存限制
