@@ -1,6 +1,6 @@
-package script.db.groovy.hzero_monitor
+package script.db
 
-databaseChangeLog(logicalFilePath: 'script/script/hmnt_audit_op_log.groovy') {
+databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_log.groovy') {
     changeSet(author: "hzero@hand-china.com", id: "2019-07-24-hmnt_audit_op_log") {
         def weight = 1
         if(helper.isSqlServer()){
@@ -12,18 +12,18 @@ databaseChangeLog(logicalFilePath: 'script/script/hmnt_audit_op_log.groovy') {
             createSequence(sequenceName: 'hmnt_audit_op_log_s', startValue:"1")
         }
         createTable(tableName: "hmnt_audit_op_log", remarks: "操作审计记录") {
-            column(name: "log_id", type: "bigint(20)", autoIncrement: true ,   remarks: "表ID，主键，供其他表做外键")  {constraints(primaryKey: true)} 
+            column(name: "log_id", type: "bigint", autoIncrement: true ,   remarks: "表ID，主键，供其他表做外键")  {constraints(primaryKey: true)} 
             column(name: "service_name", type: "varchar(" + 60 * weight + ")",  remarks: "操作审计数据来源服务")  {constraints(nullable:"false")}  
-            column(name: "user_id", type: "bigint(20)",  remarks: "操作用户，iam_user.user_id")   
+            column(name: "user_id", type: "bigint",  remarks: "操作用户，iam_user.user_id")   
             column(name: "audit_content", type: "varchar(" + 480 * weight + ")",  remarks: "操作审计内容")  {constraints(nullable:"false")}  
             column(name: "audit_datetime", type: "datetime",  remarks: "操作审计发生时间")  {constraints(nullable:"false")}  
             column(name: "audit_result", type: "varchar(" + 30 * weight + ")",  remarks: "操作审计结果，值集HMNT.AUDIT_RESULT[SUCCESS(成功),FAILED(失败)]")   
-            column(name: "time_consuming", type: "bigint(20)",  remarks: "操作耗时")   
-            column(name: "tenant_id", type: "bigint(20)",  remarks: "租户ID,hpfm_tenant.tenant_id")  {constraints(nullable:"false")}  
-            column(name: "object_version_number", type: "bigint(20)",   defaultValue:"1",   remarks: "行版本号，用来处理锁")  {constraints(nullable:"false")}  
+            column(name: "time_consuming", type: "bigint",  remarks: "操作耗时")   
+            column(name: "tenant_id", type: "bigint",  remarks: "租户ID,hpfm_tenant.tenant_id")  {constraints(nullable:"false")}  
+            column(name: "object_version_number", type: "bigint",   defaultValue:"1",   remarks: "行版本号，用来处理锁")  {constraints(nullable:"false")}  
             column(name: "creation_date", type: "datetime",   defaultValueComputed:"CURRENT_TIMESTAMP",   remarks: "")  {constraints(nullable:"false")}  
-            column(name: "created_by", type: "bigint(20)",   defaultValue:"-1",   remarks: "")  {constraints(nullable:"false")}  
-            column(name: "last_updated_by", type: "bigint(20)",   defaultValue:"-1",   remarks: "")  {constraints(nullable:"false")}  
+            column(name: "created_by", type: "bigint",   defaultValue:"-1",   remarks: "")  {constraints(nullable:"false")}  
+            column(name: "last_updated_by", type: "bigint",   defaultValue:"-1",   remarks: "")  {constraints(nullable:"false")}  
             column(name: "last_update_date", type: "datetime",   defaultValueComputed:"CURRENT_TIMESTAMP",   remarks: "")  {constraints(nullable:"false")}  
 
         }
