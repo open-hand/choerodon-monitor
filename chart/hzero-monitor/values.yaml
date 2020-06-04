@@ -109,7 +109,7 @@ env:
     # 日志级别
     LOG_LEVEL: info
     # 内存限制
-    JAVA_OPTS: >
+    JAVA_OPTS: >-
       -Xms1024m
       -Xmx1536m
 
