@@ -29,10 +29,10 @@ public class AuditInterface {
         CODE_TYPE.put(SiteAuditInterface.ASSIGN_USERSROLES_SITE_TWO, "addAdminUsers");
         CODE_TYPE.put(SiteAuditInterface.SITE_RETRY, "siteRetry");
         CODE_TYPE.put(SiteAuditInterface.ORG_RETRY, "orgRetry");
-        CODE_TYPE.put(SiteAuditInterface.ORG_RETRY, "orgRetry");
         CODE_TYPE.put(SiteAuditInterface.ENABLE_ORGANIZATION, "enableOrganization");
         CODE_TYPE.put(SiteAuditInterface.REGISTERS_APPROVAL, "registersApproval");
         CODE_TYPE.put(SiteAuditInterface.DISABLE_ORGANIZATION, "disableOrganization");
+        CODE_TYPE.put(SiteAuditInterface.CREATE_PROJECT,"createProject");
 
 
     }
@@ -52,6 +52,8 @@ public class AuditInterface {
         String ENABL_PROJECT = "/choerodon/v1/organizations/{organization_id}/projects/{project_id}/enable";
         //组织层 启用项目
         String DISABLE_PROJECT = "/choerodon/v1/projects/{project_id}/disable";
+        //创建项目
+        String CREATE_PROJECT = "/choerodon/v1/organizations/{organization_id}/projects";
         //启用用户
         String ENABL_EUSER_ONE = "/choerodon/v1/organizations/{organization_id}/users/{id}/enable";
         String ENABL_EUSER_TWO = "/hzero/v1/{organizationId}/users/{userId}/unfrozen";
