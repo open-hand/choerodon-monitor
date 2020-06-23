@@ -3,6 +3,7 @@ package io.choerodon.monitor.api.controller.v1;
 import io.choerodon.core.domain.Page;
 import io.choerodon.core.iam.ResourceLevel;
 import io.choerodon.monitor.api.service.AuditOpLogC7nService;
+import io.choerodon.monitor.api.vo.AuditOpLogVO;
 import io.choerodon.mybatis.pagehelper.annotation.SortDefault;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.pagehelper.domain.Sort;
@@ -35,8 +36,9 @@ public class AuditOpLogC7nController {
     @Permission(level = ResourceLevel.ORGANIZATION)
     @GetMapping("/organization/audit/operational/logs")
     @CustomPageRequest
-    ResponseEntity<Page<AuditOpLog>> organizationPage(@ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") long sourceId,
-                                                      @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
+    ResponseEntity<Page<AuditOpLogVO>> organizationPage(@ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") long sourceId,
+                                                        @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
+
         return Results.success(auditOpLogC7nService.pageAuditOpLog(sourceId, pageRequest));
     }
 
@@ -44,7 +46,7 @@ public class AuditOpLogC7nController {
     @Permission(level = ResourceLevel.SITE)
     @GetMapping("/site/audit/operational/logs")
     @CustomPageRequest
-    ResponseEntity<Page<AuditOpLog>> sitePage(
+    ResponseEntity<Page<AuditOpLogVO>> sitePage(
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
         return Results.success(auditOpLogC7nService.pageAuditOpLog(Long.valueOf(0), pageRequest));
     }
