@@ -32,9 +32,10 @@ public class AuditInterface {
         CODE_TYPE.put(SiteAuditInterface.ENABLE_ORGANIZATION, "enableOrganization");
         CODE_TYPE.put(SiteAuditInterface.REGISTERS_APPROVAL, "registersApproval");
         CODE_TYPE.put(SiteAuditInterface.DISABLE_ORGANIZATION, "disableOrganization");
-        CODE_TYPE.put(SiteAuditInterface.CREATE_PROJECT,"createProject");
-
-
+        CODE_TYPE.put(SiteAuditInterface.CREATE_PROJECT, "createProject");
+        CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_ONE, "disableUser");
+        CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_TWO, "disableUser");
+        CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_THREE, "disableUser");
     }
 
 
@@ -71,5 +72,10 @@ public class AuditInterface {
 
         //审批组织
         String REGISTERS_APPROVAL = "/choerodon/v1/registers/approval/{id}";
+
+        //禁用用户
+        String DISABLE_USER_ONE = "/hzero/v1/{organizationId}/users/{userId}/frozen";
+        String DISABLE_USER_TWO = "/hzero/v1/users/{userId}/frozen";
+        String DISABLE_USER_THREE = "/choerodon/v1/organizations/{organization_id}/users/{id}/disable";
     }
 }
