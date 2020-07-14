@@ -9,10 +9,12 @@ import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.pagehelper.domain.Sort;
 import io.choerodon.swagger.annotation.CustomPageRequest;
 import io.choerodon.swagger.annotation.Permission;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.hzero.core.util.Results;
 import org.hzero.monitor.domain.entity.AuditOpLog;
+import org.hzero.starter.keyencrypt.core.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +38,10 @@ public class AuditOpLogC7nController {
     @Permission(level = ResourceLevel.ORGANIZATION)
     @GetMapping("/organization/audit/operational/logs")
     @CustomPageRequest
-    ResponseEntity<Page<AuditOpLogVO>> organizationPage(@ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") long sourceId,
-                                                        @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
+    ResponseEntity<Page<AuditOpLogVO>> organizationPage(
+            @Encrypt
+            @ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") Long sourceId,
+            @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
 
         return Results.success(auditOpLogC7nService.pageAuditOpLog(sourceId, pageRequest));
     }
@@ -48,7 +52,7 @@ public class AuditOpLogC7nController {
     @CustomPageRequest
     ResponseEntity<Page<AuditOpLogVO>> sitePage(
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
-        return Results.success(auditOpLogC7nService.pageAuditOpLog(Long.valueOf(0), pageRequest));
+        return Results.success(auditOpLogC7nService.pageAuditOpLog(0L, pageRequest));
     }
 
 }

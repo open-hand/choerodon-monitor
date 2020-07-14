@@ -1,10 +1,13 @@
 package io.choerodon.monitor.api.vo;
 
+import org.hzero.starter.keyencrypt.core.Encrypt;
+
 /**
  * User: Mr.Wang
  * Date: 2020/6/24
  */
 public class Permission {
+    @Encrypt
     private Long id;
     private String code;
     private String path;
