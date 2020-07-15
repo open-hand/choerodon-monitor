@@ -6,18 +6,18 @@
     <parent>
         <groupId>io.choerodon</groupId>
         <artifactId>choerodon-framework-parent</artifactId>
-        <version>0.17.0.RELEASE</version>
+        <version>0.17.1.RELEASE</version>
     </parent>
 
     <artifactId>hzero-monitor</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.23.1-SNAPSHOT</version>
     <name>hzero-monitor</name>
     <description>Demo project for Spring Boot</description>
+
     <dependencies>
         <dependency>
             <groupId>org.hzero.starter</groupId>
             <artifactId>hzero-starter-keyencrypt</artifactId>
-            <version>1.4.0.RELEASE</version>
         </dependency>
 
         <!-- 数据库驱动 -->
