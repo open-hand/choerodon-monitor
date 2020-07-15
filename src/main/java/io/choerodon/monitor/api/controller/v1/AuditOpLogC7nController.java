@@ -39,7 +39,6 @@ public class AuditOpLogC7nController {
     @GetMapping("/organization/audit/operational/logs")
     @CustomPageRequest
     ResponseEntity<Page<AuditOpLogVO>> organizationPage(
-            @Encrypt
             @ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") Long sourceId,
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
 
