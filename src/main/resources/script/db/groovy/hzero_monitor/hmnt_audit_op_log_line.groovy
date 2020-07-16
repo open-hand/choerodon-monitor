@@ -25,4 +25,11 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_log_line.groovy') {
         }
 
     }
+    changeSet(author: "hzero@hand-china.com", id: "2020-06-11-hmnt_audit_op_log_line") {
+        addColumn(tableName: 'hmnt_audit_op_log_line') {
+            column(name: "tenant_id", type: "bigint", defaultValue: "0", remarks: "租户ID,hpfm_tenant.tenant_id") {
+                constraints(nullable: "false")
+            }
+        }
+    }
 }
