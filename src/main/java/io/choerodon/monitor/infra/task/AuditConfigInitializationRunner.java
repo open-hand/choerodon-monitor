@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.hzero.monitor.domain.entity.AuditOpConfig;
 import org.hzero.monitor.domain.repository.AuditOpConfigRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,6 @@ import org.springframework.util.CollectionUtils;
 
 import io.choerodon.monitor.api.vo.Permission;
 import io.choerodon.monitor.infra.feign.IamFeign;
-import io.choerodon.monitor.infra.mapper.AuditC7nMapper;
 
 /**
  * User: Mr.Wang
@@ -23,6 +24,7 @@ import io.choerodon.monitor.infra.mapper.AuditC7nMapper;
  */
 @Component
 public class AuditConfigInitializationRunner implements CommandLineRunner {
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private IamFeign iamFeign;
@@ -41,6 +43,7 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
         }
         Map<String, String> stringLongHashMap = FixAduitInterceptInterface.stringLongHashMap;
         auditOpConfigRepository.batchDelete(auditOpConfigRepository.selectAll());
+        LOGGER.info("更新操作拦截配置");
         for (Permission permission : permissionList) {
             AuditOpConfig auditOpConfig = new AuditOpConfig();
             auditOpConfig.setAuditOpConfigId(Long.valueOf(permissionList.indexOf(permission) + 1));
