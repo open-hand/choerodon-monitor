@@ -36,4 +36,48 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_config.groovy') {
             }
         }
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-01') {
+        addColumn(tableName: 'hmnt_audit_op_config') {
+            column(name: 'audit_type', type: "varchar(60)", defaultValue: "API", remarks: '审计类型') {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-02') {
+        dropNotNullConstraint(tableName: "hmnt_audit_op_config", columnName: "permission_id", columnDataType: "bigint")
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-03') {
+        addColumn(tableName: 'hmnt_audit_op_config') {
+            column(name: 'user_id', type: "bigint", remarks: '用户ID，iam_user.id')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-04') {
+        addColumn(tableName: 'hmnt_audit_op_config') {
+            column(name: 'role_id', type: "bigint", remarks: '角色ID，iam_role.id')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-05') {
+        addColumn(tableName: 'hmnt_audit_op_config') {
+            column(name: 'client_name', type: "varchar(32)", remarks: '客户端，oauth_client.name')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-06') {
+        dropUniqueConstraint(tableName: 'hmnt_audit_op_config', constraintName: "hmnt_audit_op_config_u1")
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_config-07') {
+        addUniqueConstraint(columnNames: "permission_id,user_id,role_id,client_name,tenant_id", tableName: "hmnt_audit_op_config", constraintName: "hmnt_audit_op_config_u2")
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-08-13-hmnt_audit_op_config-01') {
+        addColumn(tableName: 'hmnt_audit_op_config') {
+            column(name: 'business_key', type: "varchar(480)", remarks: '业务主键，支持SpEL表达式')
+        }
+    }
 }

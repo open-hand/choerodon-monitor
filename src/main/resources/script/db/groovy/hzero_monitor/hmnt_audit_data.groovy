@@ -40,4 +40,24 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data.groovy') {
             column(name: 'audit_batch_number', type: "varchar(60)", remarks: '审计批次号，hmnt_audit_op_log.audit_batch_number')
         }
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-10-hmnt_audit_data') {
+        addColumn(tableName: 'hmnt_audit_data') {
+            column(name: 'menu_id', type: "bigint", remarks: '菜单ID')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-08-25-hmnt_audit_data-1') {
+        dropUniqueConstraint(tableName: 'hmnt_audit_data', constraintName: "hmnt_audit_data_u1")
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-08-25-hmnt_audit_data-2') {
+        createIndex(tableName: "hmnt_audit_data", indexName: "hmnt_audit_data_n1") {
+            column(name: "service_name")
+            column(name: "entity_code")
+            column(name: "entity_id")
+            column(name: "entity_version")
+            column(name: "tenant_id")
+        }
+    }
 }
