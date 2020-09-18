@@ -16,7 +16,7 @@ spring:
     host: ${SPRING_REDIS_HOST:redis.hzero.org}
     port: ${SPRING_REDIS_PORT:6379}
     database: ${SPRING_REDIS_DATABASE:1}
-    lettuce:
+    jedis:
       pool:
         # 资源池中最大连接数
         # 默认8，-1表示无限制；可根据服务并发redis情况及服务端的支持上限调整
@@ -89,13 +89,6 @@ mybatis:
   mapperLocations: classpath*:/mapper/*.xml
   configuration:
     mapUnderscoreToCamelCase: true
-    key-generator: snowflake
-    snowflake:
-      start-timestamp: 1577808000000
-      meta-provider: redis
-      meta-provider-redis-db: ${SPRING_REDIS_DATABASE:1}
-      meta-provider-redis-refresh-interval: 540000
-      meta-provider-redis-expire: 600000
 
 logging:
   level:
@@ -116,6 +109,6 @@ hzero:
         enable: ${HZERO_AUDIT_ANNOTATION_ENABLE:true}
     data:
       enable: true
-  data:
-    change:
+  platform:
+    regist-entity:
       enable: true
