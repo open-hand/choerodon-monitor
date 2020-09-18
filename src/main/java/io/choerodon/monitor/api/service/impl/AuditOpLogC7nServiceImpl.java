@@ -12,6 +12,7 @@ import io.choerodon.monitor.infra.utils.AuditInterface;
 import io.choerodon.mybatis.pagehelper.PageHelper;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 
+import org.hzero.monitor.api.dto.AuditOpLogRequest;
 import org.hzero.monitor.app.service.AuditOpLogService;
 import org.hzero.monitor.domain.entity.AuditOpLog;
 import org.springframework.beans.BeanUtils;
@@ -31,19 +32,10 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
 
     @Autowired
     private AuditOpLogService auditOpLogService;
-    @Autowired
-    private AuditC7nMapper auditC7nMapper;
 
     @Override
-    public Page<AuditOpLogVO> pageAuditOpLog(Long sourceId, PageRequest pageRequest) {
-
-        Page<AuditOpLog> auditOpLogs = auditOpLogService.pageAuditOpLog(sourceId,
-                null, null,
-                null, null,
-                null, null,
-                null, null,
-                null, pageRequest);
-
+    public Page<AuditOpLogVO> pageAuditOpLog(Long sourceId, AuditOpLogRequest auditOpLogRequest, PageRequest pageRequest) {
+        Page<AuditOpLog> auditOpLogs = auditOpLogService.pageAuditOpLog(auditOpLogRequest, pageRequest);
         List<AuditOpLogVO> auditOpLogVOS = new ArrayList<>();
         List<AuditOpLog> content = auditOpLogs.getContent();
         if (!CollectionUtils.isEmpty(content)) {

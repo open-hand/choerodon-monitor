@@ -13,6 +13,7 @@ import io.choerodon.swagger.annotation.Permission;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.hzero.core.util.Results;
+import org.hzero.monitor.api.dto.AuditOpLogRequest;
 import org.hzero.monitor.domain.entity.AuditOpLog;
 import org.hzero.starter.keyencrypt.core.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,9 @@ public class AuditOpLogC7nController {
     ResponseEntity<Page<AuditOpLogVO>> organizationPage(
             @ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") Long sourceId,
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
-
-        return Results.success(auditOpLogC7nService.pageAuditOpLog(sourceId, pageRequest));
+        AuditOpLogRequest auditOpLogRequest = new AuditOpLogRequest();
+        auditOpLogRequest.setTenantId(sourceId);
+        return Results.success(auditOpLogC7nService.pageAuditOpLog(sourceId, auditOpLogRequest, pageRequest));
     }
 
     @ApiOperation("查询平台层操作记录")
@@ -51,7 +53,9 @@ public class AuditOpLogC7nController {
     @CustomPageRequest
     ResponseEntity<Page<AuditOpLogVO>> sitePage(
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
-        return Results.success(auditOpLogC7nService.pageAuditOpLog(0L, pageRequest));
+        AuditOpLogRequest auditOpLogRequest = new AuditOpLogRequest();
+        auditOpLogRequest.setTenantId(0L);
+        return Results.success(auditOpLogC7nService.pageAuditOpLog(0L, auditOpLogRequest, pageRequest));
     }
 
 }
