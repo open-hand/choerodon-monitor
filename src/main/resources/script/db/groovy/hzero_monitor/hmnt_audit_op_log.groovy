@@ -65,4 +65,34 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_log.groovy') {
             column(name: 'audit_batch_number', type: "varchar(60)", remarks: '审计批次号，hmnt_audit_data.audit_batch_number')
         }
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-10-hmnt_audit_op_log') {
+        addColumn(tableName: 'hmnt_audit_op_log') {
+            column(name: 'menu_id', type: "bigint", remarks: '菜单ID')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-16-hmnt_audit_op_log') {
+        addColumn(tableName: 'hmnt_audit_op_log') {
+            column(name: 'audit_op_config_id', type: "bigint", remarks: '操作审计ID,hmnt_audit_op_config.audit_op_config_id')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-17-hmnt_audit_op_log-01') {
+        addColumn(tableName: 'hmnt_audit_op_log') {
+            column(name: 'role_id', type: "bigint", remarks: '角色ID，iam_role.id')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-07-17-hmnt_audit_op_log-02') {
+        addColumn(tableName: 'hmnt_audit_op_log') {
+            column(name: 'client_name', type: "varchar(32)", remarks: '客户端，oauth_client.name')
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-08-17-hmnt_audit_op_log') {
+        addColumn(tableName: 'hmnt_audit_op_log') {
+            column(name: 'business_key', type: "varchar(240)", remarks: '业务主键')
+        }
+    }
 }
