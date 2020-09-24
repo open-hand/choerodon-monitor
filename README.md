@@ -1,33 +1,38 @@
 # hzero-monitor
+监控审计服务
 
-## 特征
+## Features
 提供监控审计功能。监控包括服务监控、日志监控、调用链路追踪等监控功能。审计包括数据审计和操作审计。
 
-## 服务配置
+## Data initialization
 
+- 创建数据库，本地创建 `hzero_monitor` 数据库和默认用户，示例如下：
 
-- `操作审计`
-
- ```yaml
-    hzero:
-      audit:
-        operation:
-          enable: false     # 全局开关，默认 false
-          api-audit:
-            enable: true    # API 审计开关，默认 true，如果全局开关关闭，此值无效
-          annotation-audit:
-            enable: true    # 注解审计（在Bean的方法上添加@OperationalAudit）开关，默认 true，如果全局开关关闭，此值无效
- ```
-- '数据审计'
- ```yaml
-   # application.yml
-   hzero:
-     transfer:
-       monitor:
-         enabled: true # 是否启用数据变更监控功能
-       dataAudit:
-         enabled: true # 是否启用数据变更审计功能
+  ```sql
+  CREATE USER 'choerodon'@'%' IDENTIFIED BY "123456";
+  CREATE DATABASE hzero_monitor DEFAULT CHARACTER SET utf8;
+  GRANT ALL PRIVILEGES ON hzero_monitor.* TO choerodon@'%';
+  FLUSH PRIVILEGES;
   ```
+
+- 初始化 `hzero_monitor` 数据库，运行项目根目录下的 `init-database.sh`，该脚本默认初始化数据库的地址为 `localhost`，若有变更需要修改脚本文件
+
+  ```sh
+  sh init-database.sh
+  ```
+  
+
+## Changelog
+
+- [更新日志](./CHANGELOG.zh-CN.md)
+
+
+## Contributing
+
+欢迎参与项目贡献！比如提交PR修复一个bug，或者新建Issue讨论新特性或者变更。
+
+Copyright (c) 2020-present, CHOERODON
+
 
 
 
