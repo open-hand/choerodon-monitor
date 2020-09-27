@@ -9,9 +9,9 @@
         <version>0.17.1.RELEASE</version>
     </parent>
 
-    <artifactId>hzero-monitor</artifactId>
+    <artifactId>choerodon-monitor</artifactId>
     <version>0.23.0.RELEASE</version>
-    <name>hzero-monitor</name>
+    <name>choerodon-monitor</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

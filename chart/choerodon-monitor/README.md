@@ -1,4 +1,4 @@
-# Choerodon hzero message
+# Choerodon monitor
 提供监控审计功能。监控包括服务监控、日志监控、调用链路追踪等监控功能。审计包括数据审计和操作审计。
              
 ## Introduction
@@ -13,7 +13,7 @@ helm repo update
 ## Installing the Chart
 
 ```bash
-$ helm install c7n/hzero-monitor --name hzero-monitor
+$ helm install c7n/choerodon-monitor --name choerodon-monitor
 ```
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
@@ -21,7 +21,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ## Uninstalling the Chart
 
 ```bash
-$ helm delete hzero-monitor
+$ helm delete choerodon-monitor
 ```
 
 ## Configuration
@@ -29,7 +29,7 @@ $ helm delete hzero-monitor
 Parameter | Description	| Default
 --- |  ---  |  ---  
 `replicaCount` | pod运行数量 | `1`
-`image.repository` | 镜像库地址 | `registry.choerodon.com.cn/choerodon/hzero-monitor`
+`image.repository` | 镜像库地址 | `registry.choerodon.com.cn/choerodon/choerodon-monitor`
 `image.pullPolicy` | 镜像拉取策略 | `IfNotPresent`
 `preJob.timeout` | job超时时间 | `300`
 `preJob.image` | job镜像库地址 | `registry.cn-hangzhou.aliyuncs.com/choerodon-tools/dbtool:0.7.1`
@@ -55,7 +55,7 @@ Parameter | Description	| Default
 `service.enabled` | 是否创建k8s service | `false`
 `service.type` |  service类型 | `ClusterIP`
 `service.port` | service端口 | `8260`
-`service.name` | service名称 | `hzero-monitor`
+`service.name` | service名称 | `choerodon-monitor`
 `resources.limits` | k8s中容器能使用资源的资源最大值 | `3Gi`
 `resources.requests` | k8s中容器使用的最小资源需求 | `2Gi`
 
@@ -73,14 +73,14 @@ Parameter | Description
 `skywalking.collector.backend_service` | SkyWalking OAP 服务地址和端口配置
 
 ```bash
-$ helm install c7n/hzero-monitor \
-    --set env.open.SKYWALKING_OPTS="-javaagent:/agent/skywalking-agent.jar -Dskywalking.agent.application_code=hzero-monitor  -Dskywalking.agent.sample_n_per_3_secs=-1 -Dskywalking.collector.backend_service=oap.skywalking:11800" \
-    --name hzero-monitor
+$ helm install c7n/choerodon-monitor \
+    --set env.open.SKYWALKING_OPTS="-javaagent:/agent/skywalking-agent.jar -Dskywalking.agent.application_code=choerodon-monitor  -Dskywalking.agent.sample_n_per_3_secs=-1 -Dskywalking.collector.backend_service=oap.skywalking:11800" \
+    --name choerodon-monitor
 ```
 
 ## 验证部署
 ```bash
-curl -s $(kubectl get po -n c7n-system -l choerodon.io/release=hzero-monitor -o jsonpath="{.items[0].status.podIP}"):8261/actuator/health | jq -r .status
+curl -s $(kubectl get po -n c7n-system -l choerodon.io/release=choerodon-monitor -o jsonpath="{.items[0].status.podIP}"):8261/actuator/health | jq -r .status
 ```
 出现以下类似信息即为成功部署
 
