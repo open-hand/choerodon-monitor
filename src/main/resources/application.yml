@@ -53,7 +53,9 @@ server:
     # HTTP POST请求最大的大小
     # 默认0，无限制，可设置10M
     max-http-post-size: 10485760
-
+choerodon:
+  saga:
+    service: choerodon-asgard
 feign:
   hystrix:
     enabled: true
