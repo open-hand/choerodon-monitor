@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
 import io.choerodon.core.exception.CommonException;
@@ -62,7 +61,6 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
                     auditOpConfig.setLastUpdatedBy(1L);
                     auditOpConfig.setLastUpdateDate(new Date());
                     auditOpConfig.setAuditDataFlag(1);
-                    auditOpConfig.setAuditType(API);
                     auditOpConfigRepository.insert(auditOpConfig);
                 }
             } catch (Exception e) {
