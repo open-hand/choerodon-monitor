@@ -1,6 +1,6 @@
 spring:
   application:
-    name: hzero-monitor
+    name: choerodon-monitor
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_monitor?useUnicode=true&characterEncoding=utf-8&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:hzero}
@@ -53,7 +53,9 @@ server:
     # HTTP POST请求最大的大小
     # 默认0，无限制，可设置10M
     max-http-post-size: 10485760
-
+choerodon:
+  saga:
+    service: choerodon-asgard
 feign:
   hystrix:
     enabled: true
@@ -103,6 +105,25 @@ logging:
     io.choerodon: ${LOG_LEVEL:debug}
     org.hzero: ${LOG_LEVEL:debug}
 hzero:
+  service:
+    platform:
+      name: choerodon-platform
+    oauth:
+      name: choerodon-oauth
+    iam:
+      name: choerodon-iam
+    file:
+      name: choerodon-file
+    message:
+      name: choerodon-message
+    admin:
+      name: choerodon-admin
+    swagger:
+      name: choerodon-swagger
+    gateway:
+      name: choerodon-gateway
+    monitor:
+      name: choerodon-monitor
   modular:
     enable: true
   resource:

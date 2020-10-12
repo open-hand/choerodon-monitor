@@ -25,6 +25,7 @@ import io.choerodon.monitor.infra.feign.IamFeign;
 @Component
 public class AuditConfigInitializationRunner implements CommandLineRunner {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final String API = "API";
 
     private final String API = "API";
 
@@ -62,7 +63,6 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
                     auditOpConfig.setLastUpdatedBy(1L);
                     auditOpConfig.setLastUpdateDate(new Date());
                     auditOpConfig.setAuditDataFlag(1);
-                    auditOpConfig.setAuditType(API);
                     auditOpConfigRepository.insert(auditOpConfig);
                 }
             } catch (Exception e) {
