@@ -27,8 +27,6 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private final String API = "API";
 
-    private final String API = "API";
-
     @Autowired
     private IamFeign iamFeign;
 
