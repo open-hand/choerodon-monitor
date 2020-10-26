@@ -61,6 +61,7 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
                     auditOpConfig.setLastUpdatedBy(1L);
                     auditOpConfig.setLastUpdateDate(new Date());
                     auditOpConfig.setAuditDataFlag(1);
+                    auditOpConfig.setAuditType(API);
                     auditOpConfigRepository.insert(auditOpConfig);
                 }
             } catch (Exception e) {
