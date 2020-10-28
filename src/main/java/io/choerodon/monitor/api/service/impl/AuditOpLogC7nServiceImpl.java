@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * User: Mr.Wang
@@ -42,13 +43,15 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
             for (AuditOpLog auditOpLog : content) {
                 AuditOpLogVO auditOpLogVO = new AuditOpLogVO();
                 BeanUtils.copyProperties(auditOpLog, auditOpLogVO);
-                if (sourceId == 0) {
-                    auditOpLogVO.setSourceType(SITE);
+                //不能以tenant来归类，根据具体的类型来归类。
+                if (sourceId != 0 && StringUtils.endsWithIgnoreCase(AuditInterface.TYPE_LEVEL.get(auditOpLogVO.getRequestUrl()), ORGANIZATION)) {
+                    auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
+                    auditOpLogVOS.add(auditOpLogVO);
                 } else {
-                    auditOpLogVO.setSourceType(ORGANIZATION);
+                    auditOpLogVO.setSourceType(SITE);
+                    auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
+                    auditOpLogVOS.add(auditOpLogVO);
                 }
-                auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
-                auditOpLogVOS.add(auditOpLogVO);
             }
         }
         Page<AuditOpLogVO> result = new Page<>();

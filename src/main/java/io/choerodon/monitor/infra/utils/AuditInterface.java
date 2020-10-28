@@ -13,7 +13,7 @@ public class AuditInterface {
     }
 
     public static Map<String, String> CODE_TYPE = new HashMap<>();
-    private static Map<String, String> TYPE_LEVEL = new HashMap<>();
+    public static Map<String, String> TYPE_LEVEL = new HashMap<>();
 
     //操作类型与接口的
     static {
@@ -36,6 +36,26 @@ public class AuditInterface {
         CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_ONE, "disableUser");
         CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_TWO, "disableUser");
         CODE_TYPE.put(SiteAuditInterface.DISABLE_USER_THREE, "disableUser");
+
+        TYPE_LEVEL.put(SiteAuditInterface.CREATE_ORG, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.ASSIGN_USERSROLES_SITE_ONE, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.ENABL_PROJECT, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.DISABLE_PROJECT, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.ENABL_EUSER_ONE, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.ENABL_EUSER_TWO, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.ENABL_EUSER_THREE, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.RESETUSER_PASSWORD_ONE, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.RESETUSER_PASSWORD_TWO, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.ASSIGN_USERSROLES_SITE_TWO, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.SITE_RETRY, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.ORG_RETRY, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.ENABLE_ORGANIZATION, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.REGISTERS_APPROVAL, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.DISABLE_ORGANIZATION, "SITE");
+        TYPE_LEVEL.put(SiteAuditInterface.CREATE_PROJECT, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.DISABLE_USER_ONE, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.DISABLE_USER_TWO, "ORGANIZATION");
+        TYPE_LEVEL.put(SiteAuditInterface.DISABLE_USER_THREE, "ORGANIZATION");
     }
 
 
