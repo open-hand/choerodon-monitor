@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * User: Mr.Wang
@@ -31,8 +32,6 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
 
     @Autowired
     private AuditOpLogService auditOpLogService;
-    @Autowired
-    private AuditC7nMapper auditC7nMapper;
 
     @Override
     public Page<AuditOpLogVO> pageAuditOpLog(Long sourceId, PageRequest pageRequest) {
@@ -44,23 +43,30 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
                 null, null,
                 null, pageRequest);
 
-        List<AuditOpLogVO> auditOpLogVOS = new ArrayList<>();
+        List<AuditOpLogVO> auditOpLogVOSOrg = new ArrayList<>();
+        List<AuditOpLogVO> auditOpLogVOSSite = new ArrayList<>();
         List<AuditOpLog> content = auditOpLogs.getContent();
         if (!CollectionUtils.isEmpty(content)) {
             for (AuditOpLog auditOpLog : content) {
                 AuditOpLogVO auditOpLogVO = new AuditOpLogVO();
                 BeanUtils.copyProperties(auditOpLog, auditOpLogVO);
-                if (sourceId == 0) {
-                    auditOpLogVO.setSourceType(SITE);
+                //不能以tenant来归类，根据具体的类型来归类。
+                if (sourceId != 0 && StringUtils.endsWithIgnoreCase(AuditInterface.TYPE_LEVEL.get(auditOpLogVO.getRequestUrl()), ORGANIZATION)) {
+                    auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
+                    auditOpLogVOSOrg.add(auditOpLogVO);
                 } else {
-                    auditOpLogVO.setSourceType(ORGANIZATION);
+                    auditOpLogVO.setSourceType(SITE);
+                    auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
+                    auditOpLogVOSSite.add(auditOpLogVO);
                 }
-                auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
-                auditOpLogVOS.add(auditOpLogVO);
             }
         }
         Page<AuditOpLogVO> result = new Page<>();
-        result.setContent(auditOpLogVOS);
+        if (sourceId == 0) {
+            result.setContent(auditOpLogVOSSite);
+        } else {
+            result.setContent(auditOpLogVOSOrg);
+        }
         result.setNumberOfElements(auditOpLogs.getNumberOfElements());
         result.setNumber(auditOpLogs.getNumber());
         result.setTotalPages(auditOpLogs.getTotalPages());
