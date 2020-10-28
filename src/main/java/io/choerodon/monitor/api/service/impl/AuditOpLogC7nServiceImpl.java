@@ -37,7 +37,8 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
     @Override
     public Page<AuditOpLogVO> pageAuditOpLog(Long sourceId, AuditOpLogRequest auditOpLogRequest, PageRequest pageRequest) {
         Page<AuditOpLog> auditOpLogs = auditOpLogService.pageAuditOpLog(auditOpLogRequest, pageRequest);
-        List<AuditOpLogVO> auditOpLogVOS = new ArrayList<>();
+        List<AuditOpLogVO> auditOpLogVOSOrg = new ArrayList<>();
+        List<AuditOpLogVO> auditOpLogVOSSite = new ArrayList<>();
         List<AuditOpLog> content = auditOpLogs.getContent();
         if (!CollectionUtils.isEmpty(content)) {
             for (AuditOpLog auditOpLog : content) {
@@ -46,16 +47,20 @@ public class AuditOpLogC7nServiceImpl implements AuditOpLogC7nService {
                 //不能以tenant来归类，根据具体的类型来归类。
                 if (sourceId != 0 && StringUtils.endsWithIgnoreCase(AuditInterface.TYPE_LEVEL.get(auditOpLogVO.getRequestUrl()), ORGANIZATION)) {
                     auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
-                    auditOpLogVOS.add(auditOpLogVO);
+                    auditOpLogVOSOrg.add(auditOpLogVO);
                 } else {
                     auditOpLogVO.setSourceType(SITE);
                     auditOpLogVO.setType(AuditInterface.CODE_TYPE.get(auditOpLogVO.getRequestUrl()));
-                    auditOpLogVOS.add(auditOpLogVO);
+                    auditOpLogVOSSite.add(auditOpLogVO);
                 }
             }
         }
         Page<AuditOpLogVO> result = new Page<>();
-        result.setContent(auditOpLogVOS);
+        if (sourceId == 0) {
+            result.setContent(auditOpLogVOSSite);
+        } else {
+            result.setContent(auditOpLogVOSOrg);
+        }
         result.setNumberOfElements(auditOpLogs.getNumberOfElements());
         result.setNumber(auditOpLogs.getNumber());
         result.setTotalPages(auditOpLogs.getTotalPages());
