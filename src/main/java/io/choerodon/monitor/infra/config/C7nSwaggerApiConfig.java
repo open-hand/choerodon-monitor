@@ -15,7 +15,7 @@ public class C7nSwaggerApiConfig {
     @Autowired
     public C7nSwaggerApiConfig(Docket docket) {
         docket.tags(
-                new Tag(CHOERODON_AUDIT_OP_LOG_C7N, "Choerodon系统配置")
+                new Tag(CHOERODON_AUDIT_OP_LOG_C7N, "Choerodon日志查询")
         );
     }
 }
