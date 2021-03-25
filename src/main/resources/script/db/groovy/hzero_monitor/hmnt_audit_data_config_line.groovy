@@ -1,13 +1,13 @@
 package script.db
 
 databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data_config_line.groovy') {
+    def weight = 1
+    if(helper.isSqlServer()){
+        weight = 2
+    } else if(helper.isOracle()){
+        weight = 3
+    }
     changeSet(author: "xingxing.wu@hand-china.com", id: "2019-08-17-hmnt_audit_data_config_line") {
-        def weight = 1
-        if(helper.isSqlServer()){
-            weight = 2
-        } else if(helper.isOracle()){
-            weight = 3
-        }
         if(helper.dbType().isSupportSequence()){
             createSequence(sequenceName: 'hmnt_audit_data_config_line_s', startValue:"1")
         }
@@ -32,5 +32,11 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data_config_line.groovy
         }
 
         addUniqueConstraint(columnNames:"audit_data_config_id,entity_column_id,tenant_id",tableName:"hmnt_audit_data_config_line",constraintName: "hmnt_audit_data_config_line_u1")
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-08-13-hmnt_audit_data_config_line-01') {
+        addColumn(tableName: 'hmnt_audit_data_config_line') {
+            column(name: "desensitize_rule", type: "varchar(" + 60 * weight + ")", remarks: "脱敏规则")
+        }
     }
 }

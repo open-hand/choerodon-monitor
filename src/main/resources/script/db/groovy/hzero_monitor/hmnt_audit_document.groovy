@@ -28,4 +28,16 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_document.groovy') {
 
         addUniqueConstraint(columnNames:"document_code,tenant_id",tableName:"hmnt_audit_document",constraintName: "hmnt_audit_document_u1")
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-09-21-hmnt_audit_document-01') {
+        addColumn(tableName: 'hmnt_audit_document') {
+            column(name: "page_route", type: "varchar(1000)", remarks: "页面路由")
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2020-09-21-hmnt_audit_document-02') {
+        addColumn(tableName: 'hmnt_audit_document') {
+            column(name: "business_key", type: "varchar(480)", remarks: "路由中的业务主键名称")
+        }
+    }
 }
