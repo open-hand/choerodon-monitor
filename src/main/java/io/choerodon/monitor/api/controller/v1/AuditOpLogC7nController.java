@@ -4,12 +4,14 @@ import io.choerodon.core.domain.Page;
 import io.choerodon.core.iam.ResourceLevel;
 import io.choerodon.monitor.api.service.AuditOpLogC7nService;
 import io.choerodon.monitor.api.vo.AuditOpLogVO;
+import io.choerodon.monitor.infra.config.C7nSwaggerApiConfig;
 import io.choerodon.mybatis.pagehelper.annotation.SortDefault;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.pagehelper.domain.Sort;
 import io.choerodon.swagger.annotation.CustomPageRequest;
 import io.choerodon.swagger.annotation.Permission;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.hzero.core.util.Results;
@@ -18,18 +20,16 @@ import org.hzero.monitor.domain.entity.AuditOpLog;
 import org.hzero.starter.keyencrypt.core.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * User: Mr.Wang
  * Date: 2020/4/21
  */
+@Api(value = C7nSwaggerApiConfig.CHOERODON_AUDIT_OP_LOG_C7N)
 @RestController
-@RequestMapping("choerodon/v1/{source_id}")
+@RequestMapping("/choerodon/v1/{source_id}")
 public class AuditOpLogC7nController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class AuditOpLogC7nController {
     @Permission(level = ResourceLevel.ORGANIZATION)
     @GetMapping("/organization/audit/operational/logs")
     @CustomPageRequest
-    ResponseEntity<Page<AuditOpLogVO>> organizationPage(
+    public ResponseEntity<Page<AuditOpLogVO>> organizationPage(
             @ApiParam(value = "租户id", required = true) @PathVariable(name = "source_id") Long sourceId,
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
         AuditOpLogRequest auditOpLogRequest = new AuditOpLogRequest();
@@ -51,7 +51,7 @@ public class AuditOpLogC7nController {
     @Permission(level = ResourceLevel.SITE)
     @GetMapping("/site/audit/operational/logs")
     @CustomPageRequest
-    ResponseEntity<Page<AuditOpLogVO>> sitePage(
+    public ResponseEntity<Page<AuditOpLogVO>> sitePage(
             @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest) {
         AuditOpLogRequest auditOpLogRequest = new AuditOpLogRequest();
         auditOpLogRequest.setTenantId(0L);
