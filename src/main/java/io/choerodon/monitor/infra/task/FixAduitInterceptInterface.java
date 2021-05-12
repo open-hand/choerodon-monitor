@@ -25,12 +25,15 @@ public class FixAduitInterceptInterface {
         stringLongHashMap.put("choerodon-iam.choerodon-organization-project.create", "'  [' + #_userDetails.getRealName() + '] 创建项目'");
         stringLongHashMap.put("choerodon-iam.choerodon-organization-project.enableProject", "'  [' + #_userDetails.getRealName() + '] 启用了项目'");
         stringLongHashMap.put("choerodon-iam.choerodon-project.disableProject", "'  [' + #_userDetails.getRealName() + '] 停用了项目'");
+        stringLongHashMap.put("choerodon-iam.choerodon-organization-project.disableProject", "'  [' + #_userDetails.getRealName() + '] 停用了项目'");
         stringLongHashMap.put("choerodon-iam.organization-user.enableUser", "'  [' + #_userDetails.getRealName() + '] 启用了用户'");
         stringLongHashMap.put("choerodon-iam.hiam-user.unfrozenUser", "'  [' + #_userDetails.getRealName() + '] 启用了用户'");
         stringLongHashMap.put("choerodon-iam.hiam-user-site-level.unfrozenUser", "'  [' + #_userDetails.getRealName() + '] 启用了用户'");
         stringLongHashMap.put("choerodon-iam.organization-user.resetUserPassword", "'  [' + #_userDetails.getRealName() + '] 重置了用户密码'");
         stringLongHashMap.put("choerodon-iam.hiam-user.resetUserPassword", "'  [' + #_userDetails.getRealName() + '] 重置了用户密码'");
         stringLongHashMap.put("choerodon-iam.choerodon-menu-role.create", "'  [' + #_userDetails.getRealName() + '] 分配了权限'");
+        stringLongHashMap.put("choerodon-iam.choerodon-project-user.assignUsersRolesOnProjectLevel", "'  [' + #_userDetails.getRealName() + '] 分配了权限'");
+        stringLongHashMap.put("choerodon-iam.choerodon-role-member.assignUsersRolesOnOrganizationLevel", "'  [' + #_userDetails.getRealName() + '] 分配了权限'");
         stringLongHashMap.put("choerodon-asgard.saga-task-instance.retry", "'  [' + #_userDetails.getRealName() + '] 重试了事务'");
         stringLongHashMap.put("choerodon-asgard.saga-task-instance-org.retry", "'  [' + #_userDetails.getRealName() + '] 重试了事务'");
         stringLongHashMap.put("choerodon-iam.choerodon-organization-pro.create", "'  [' + #_userDetails.getRealName() + '] 创建了组织'");
