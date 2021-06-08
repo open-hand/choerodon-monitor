@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>choerodon-monitor</artifactId>
-    <version>0.25.0.RELEASE</version>
+    <version>0.25.1.RELEASE</version>
     <name>choerodon-monitor</name>
     <description>Demo project for Spring Boot</description>
 
