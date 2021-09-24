@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.http.HttpServletResponse;
 import org.hzero.boot.monitor.audit.op.util.StringUtils;
 import org.hzero.boot.platform.lov.annotation.ProcessLovValue;
@@ -30,6 +31,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import io.choerodon.core.domain.Page;
 import io.choerodon.core.iam.ResourceLevel;
+import io.choerodon.monitor.api.vo.IamUserDTO;
+import io.choerodon.monitor.infra.feign.IamFeign;
 import io.choerodon.mybatis.pagehelper.annotation.SortDefault;
 import io.choerodon.mybatis.pagehelper.domain.PageRequest;
 import io.choerodon.mybatis.pagehelper.domain.Sort;
@@ -45,6 +48,9 @@ import io.choerodon.swagger.annotation.Permission;
 public class AuditOpLogController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(AuditOpLogController.class);
     private AuditOpLogService auditOpLogService;
+
+    @Autowired
+    private IamFeign iamFeign;
 
     @Autowired
     public AuditOpLogController(AuditOpLogService auditOpLogService) {
@@ -78,7 +84,12 @@ public class AuditOpLogController extends BaseController {
                                        @Encrypt @RequestBody OperationalAudit operationalAudit) {
         logger.debug(">>>>> [OA] Receive audit data : {}", operationalAudit);
         //content中如果操作者包含null 则要替换为admin
-        operationalAudit.getContent().replace("null", "admin");
+        ResponseEntity<IamUserDTO> iamUserDTOResponseEntity = iamFeign.queryById(operationalAudit.getUserId());
+        if (Objects.isNull(iamUserDTOResponseEntity) || iamUserDTOResponseEntity.getBody() == null) {
+            logger.info(">>>>> operater user is null >>>>>>>");
+            return Results.success();
+        }
+        operationalAudit.setContent(operationalAudit.getContent().replace("null", iamUserDTOResponseEntity.getBody().getRealName()));
         AuditOpLog auditOpLog = new AuditOpLog()
                 .setServiceName(operationalAudit.getServiceName())
                 .setUserId(operationalAudit.getUserId())
