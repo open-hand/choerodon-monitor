@@ -60,4 +60,8 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data.groovy') {
             column(name: "tenant_id")
         }
     }
+
+    changeSet(author: "hongjian.zhao@hand-china.com", id: "2021-12-10-hmnt_audit_data-3") {
+        dropNotNullConstraint (tableName: "hmnt_audit_data", columnName: "audit_data_config_id", columnDataType: "bigint")
+    }
 }
