@@ -28,10 +28,16 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_data_line.groovy') {
             column(name: "last_update_date", type: "datetime",   defaultValueComputed:"CURRENT_TIMESTAMP",   remarks: "")  {constraints(nullable:"false")}  
 
         }
-   createIndex(tableName: "hmnt_audit_data_line", indexName: "hmnt_audit_data_line_n1") {
+
+        createIndex(tableName: "hmnt_audit_data_line", indexName: "hmnt_audit_data_line_n1") {
             column(name: "field_code")
             column(name: "lang")
         }
+    }
 
+    changeSet(author: "zhiying.dong@hand-china.com", id: "hmnt_audit_data_line-2021-10-11-version-2") {
+        createIndex (tableName: "hmnt_audit_data_line", indexName: "hmnt_audit_data_line_n2") {
+            column (name: "audit_data_id")
+        }
     }
 }

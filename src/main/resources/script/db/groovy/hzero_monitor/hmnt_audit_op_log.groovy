@@ -95,4 +95,35 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_log.groovy') {
             column(name: 'business_key', type: "varchar(240)", remarks: '业务主键')
         }
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-1-hmnt_audit_op_log') {
+        createIndex(tableName: "hmnt_audit_op_log", indexName: "hmnt_audit_op_log_n1") {
+            column(name: "audit_op_config_id")
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-2-hmnt_audit_op_log') {
+        createIndex(tableName: "hmnt_audit_op_log", indexName: "hmnt_audit_op_log_n2") {
+            column(name: "audit_batch_number")
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-3-hmnt_audit_op_log') {
+        createIndex(tableName: "hmnt_audit_op_log", indexName: "hmnt_audit_op_log_n3") {
+            column(name: "user_id")
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-4-hmnt_audit_op_log') {
+        createIndex(tableName: "hmnt_audit_op_log", indexName: "hmnt_audit_op_log_n4") {
+            column(name: "tenant_id")
+        }
+    }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-5-hmnt_audit_op_log') {
+        createIndex(tableName: "hmnt_audit_op_log", indexName: "hmnt_audit_op_log_n5") {
+            column(name: "user_id")
+            column(name: "audit_batch_number")
+        }
+    }
 }

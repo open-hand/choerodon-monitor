@@ -32,4 +32,10 @@ databaseChangeLog(logicalFilePath: 'script/db/hmnt_audit_op_log_line.groovy') {
             }
         }
     }
+
+    changeSet(author: 'hzero@hand-china.com', id: '2021-06-28-hmnt_audit_op_log_line') {
+        createIndex(tableName: "hmnt_audit_op_log_line", indexName: "hmnt_audit_op_log_line_n1") {
+            column(name: "log_id")
+        }
+    }
 }
