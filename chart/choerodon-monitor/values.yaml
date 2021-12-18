@@ -80,18 +80,10 @@ env:
     # 数据库密码
     SPRING_DATASOURCE_PASSWORD: password
 
-    # Hystrix 熔断超时时间
-    HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS: 40000
-    # Ribbon 读取超时时间
-    RIBBON_READ_TIMEOUT: 30000
-    # Ribbon 连接超时时间
-    RIBBON_CONNECT_TIMEOUT: 3000
-    # IO线程数, 它主要执行非阻塞的任务
-    SERVER_UNDERTOW_IO_THREADS: 4
-    # 阻塞任务线程池
-    SERVER_UNDERTOW_WORKER_THREADS: 128
-    # 每块buffer的空间大小，越小空间被利用越充分
-    SERVER_UNDERTOW_BUFFER_SIZE: 1024
+    # 连接超时
+    FEIGN_CLIENT_CONFIG_DEFAULT_CONNECT_TIMEOUT: 2000
+    # 读取超时
+    FEIGN_CLIENT_CONFIG_DEFAULT_READ_TIMEOUT: 5000
     # 是否开启审计
     HZERO_AUDIT_OPERATION_ENABLE: true
     # 是否开启API审计
