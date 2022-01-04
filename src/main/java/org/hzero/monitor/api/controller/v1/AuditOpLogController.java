@@ -131,10 +131,12 @@ public class AuditOpLogController extends BaseController {
     @Permission(level = ResourceLevel.ORGANIZATION)
     @GetMapping("/audit/operational/logs/export")
     @ExcelExport(AuditOpLog.class)
+    @CustomPageRequest
     public ResponseEntity<List<AuditOpLog>> export(@ApiParam(value = "租户id", required = true) @PathVariable long organizationId,
                                                    @Encrypt AuditOpLogRequest auditOpLogRequest,
                                                    HttpServletResponse response,
+                                                   @ApiIgnore @SortDefault(value = AuditOpLog.FIELD_LOG_ID, direction = Sort.Direction.DESC) PageRequest pageRequest,
                                                    ExportParam exportParam) {
-        return Results.success(auditOpLogService.listAuditOpLog(auditOpLogRequest.setTenantId(organizationId)));
+        return Results.success(auditOpLogService.listAuditOpLog(auditOpLogRequest, pageRequest));
     }
 }
