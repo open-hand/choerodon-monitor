@@ -1,6 +1,6 @@
 # choerodon-monitor
 
-Gateway of Choerodon.
+Monitor service of Choerodon.
 
 ## Installing the Chart
 
@@ -76,7 +76,7 @@ $ helm delete choerodon-monitor
 | image.pullPolicy | string | `"IfNotPresent"` | Specify a imagePullPolicy. Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent' |
 | image.pullSecrets | list | `[]` | Optionally specify an array of imagePullSecrets. Secrets must be manually created in the namespace. |
 | image.registry | string | `"registry.cn-shanghai.aliyuncs.com"` | service image registry |
-| image.repository | string | `"c7n/choerodon-iam-service-hand"` | service image repository |
+| image.repository | string | `"c7n/choerodon-monitor"` | service image repository |
 | image.tag | string | `nil` | service image tag. Default Chart.AppVersion |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. |
 | ingress.apiVersion | string | `""` | Force Ingress API version (automatically detected if not set) |
