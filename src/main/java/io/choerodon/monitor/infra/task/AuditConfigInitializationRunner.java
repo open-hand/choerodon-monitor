@@ -10,6 +10,7 @@ import org.hzero.monitor.domain.repository.AuditOpConfigRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -30,12 +31,18 @@ public class AuditConfigInitializationRunner implements CommandLineRunner {
     @Autowired
     private IamFeign iamFeign;
 
+    @Value("${refresh.op.configuration: true}")
+    private Boolean refreshOpConfiguration;
+
     @Autowired
     private AuditOpConfigRepository auditOpConfigRepository;
 
 
     @Override
     public void run(String... args) throws Exception {
+        if (!refreshOpConfiguration) {
+            return;
+        }
         new Thread(() -> {
             try {
                 Set<String> keySet = FixAduitInterceptInterface.stringLongHashMap.keySet();
